@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .hearts {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .heart {
+        position: absolute;
+        font-size: 30px;
+        animation: float 6s infinite;
+        opacity: 0.6;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+        }
+        50% {
+            opacity: 0.6;
+        }
+        100% {
+            transform: translateY(-100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .container {
+        text-align: center;
+        background: white;
+        padding: 40px 30px;
+        border-radius: 30px;
+        box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+        position: relative;
+        z-index: 10;
+        max-width: 90%;
+        width: 100%;
+    }
+
+    h1 {
+        color: #ff1493;
+        font-size: 2em;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+    }
+
+    @media (min-width: 768px) {
+        .container {
+            padding: 60px 80px;
+            max-width: 800px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 40px;
+        }
+    }
+
+    .buttons {
+        position: relative;
+        height: 250px;
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto 0;
+    }
+
+    button {
+        padding: 15px 35px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: transform 0.2s, box-shadow 0.2s;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    @media (min-width: 768px) {
+        .buttons {
+            height: 300px;
+        }
+        
+        button {
+            padding: 20px 50px;
+            font-size: 1.5em;
+        }
+    }
+
+    button:hover {
+        transform: scale(1.1);
+    }
+
+    #yesBtn {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        position: absolute;
+        left: 25%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #yesBtn:hover {
+        box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    #noBtn {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        color: #666;
+        box-shadow: 0 5px 15px rgba(168, 237, 234, 0.4);
+        position: absolute;
+        left: 75%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .celebration {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .celebration.active {
+        display: flex;
+    }
+
+    .celebration img {
+        max-width: 100%;
+        width: 300px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .celebration h2 {
+        color: #ff1493;
+        font-size: 1.8em;
+        animation: bounce 0.5s infinite alternate;
+    }
+
+    @media (min-width: 768px) {
+        .celebration img {
+            width: 400px;
+        }
+        
+        .celebration h2 {
+            font-size: 2.5em;
+        }
+    }
+
+    @keyframes bounce {
+        from { transform: translateY(0px); }
+        to { transform: translateY(-10px); }
+    }
+
+    .question-container {
+        display: block;
+    }
+
+    .question-container.hidden {
+        display: none;
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+
+```
+<div class="container">
+    <div class="question-container" id="questionContainer">
+        <h1>Will you be my Valentine? 💕</h1>
+        <div class="buttons">
+            <button id="yesBtn">Yes! 💖</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <h2>Yay! 🎉💕</h2>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDJ6ZDJvN3F5MnJzN3Q3ZjJyaGZkZjJhN3JzZjJhN3JzZjJhN3JzZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/R6gvnAxj2ISzJdbA63/giphy.gif" alt="Celebration!">
+    </div>
+</div>
+
+<script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const questionContainer = document.getElementById('questionContainer');
+    const celebration = document.getElementById('celebration');
+    const heartsContainer = document.getElementById('hearts');
+
+    // Create floating hearts
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        heartsContainer.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+
+    setInterval(createHeart, 500);
+
+    // No button moves randomly
+    noBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const container = document.querySelector('.buttons');
+        const containerRect = container.getBoundingClientRect();
+        const yesRect = yesBtn.getBoundingClientRect();
+        const noRect = noBtn.getBoundingClientRect();
+        
+        const padding = 20; // Extra space between buttons
+        let randomX, randomY;
+        let attempts = 0;
+        const maxAttempts = 50;
+        
+        // Keep trying to find a position that doesn't overlap with Yes button
+        do {
+            randomX = Math.random() * (containerRect.width - noRect.width);
+            randomY = Math.random() * (containerRect.height - noRect.height);
+            
+            // Calculate the position of No button relative to container
+            const noLeft = randomX;
+            const noTop = randomY;
+            const noRight = noLeft + noRect.width;
+            const noBottom = noTop + noRect.height;
+            
+            // Calculate Yes button position relative to container
+            const yesLeft = yesRect.left - containerRect.left;
+            const yesTop = yesRect.top - containerRect.top;
+            const yesRight = yesLeft + yesRect.width;
+            const yesBottom = yesTop + yesRect.height;
+            
+            // Check if boxes overlap (with padding)
+            const overlap = !(noRight + padding < yesLeft || 
+                            noLeft - padding > yesRight || 
+                            noBottom + padding < yesTop || 
+                            noTop - padding > yesBottom);
+            
+            if (!overlap) break;
+            attempts++;
+        } while (attempts < maxAttempts);
+        
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+        noBtn.style.transform = 'none';
+    });
+
+    // Yes button shows celebration
+    yesBtn.addEventListener('click', function() {
+        questionContainer.classList.add('hidden');
+        celebration.classList.add('active');
+        
+        // Create extra hearts celebration
+        for (let i = 0; i < 30; i++) {
+            setTimeout(createHeart, i * 100);
+        }
+    });
+</script>
+```
+
+</body>
+</html>
